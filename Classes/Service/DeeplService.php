@@ -38,6 +38,7 @@ use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use WebVision\WvDeepltranslate\Domain\Repository\SettingsRepository;
 
@@ -102,6 +103,9 @@ class DeeplService
         if (!empty($this->deeplFormality) && in_array(strtoupper($targetLanguage), $this->formalitySupportedLanguages, true)) {
             $postFields['formality'] = $this->deeplFormality;
         }
+
+        $this->addGlossary($postFields, $sourceLanguage, $targetLanguage);
+
         //url-ify the data to get content length
         $postFieldString = '';
         foreach ($postFields as $key => $value) {
@@ -175,5 +179,23 @@ class DeeplService
         }
 
         return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * Adds glossary support to the request.
+     *
+     * @param array $postFields
+     * @param string $sourceLanguage
+     * @param string $targetLanguage
+     */
+    protected function addGlossary(array &$postFields, string $sourceLanguage, string $targetLanguage)
+    {
+        $configuration = GeneralUtility::makeInstance(BackendConfigurationManager::class)->getConfiguration(
+            'wvdeepltranslate'
+        );
+        $languageKey = strtolower($sourceLanguage . '-' . $targetLanguage);
+        if (isset($configuration['settings']['glossaries'][$languageKey])) {
+            $postFields['glossary_id'] = $configuration['settings']['glossaries'][$languageKey];
+        }
     }
 }
