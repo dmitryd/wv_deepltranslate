@@ -9,8 +9,6 @@ if (!defined('TYPO3_MODE')) {
         '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:wv_deepltranslate/Configuration/TsConfig/Page/pagetsconfig.tsconfig">'
     );
 
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['Backend\Template\Components\ButtonBar']['getButtonsHook']['wv_deepltranslate'] =
-        \WebVision\WvDeepltranslate\Hooks\ButtonBarHook::class . '->getButtons';
     //allowLanguageSynchronizationHook manipulates l10n_state
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][]
         = \WebVision\WvDeepltranslate\Hooks\AllowLanguageSynchronizationHook::class;
@@ -70,7 +68,6 @@ if (!defined('TYPO3_MODE')) {
     }
 
     $icons = [
-        'apps-pagetree-folder-contains-glossar' => 'deepl.svg',
         'actions-localize-deepl' => 'actions-localize-deepl.svg',
         'deepl-grey-logo' => 'deepl-grey.svg',
     ];

@@ -64,15 +64,6 @@
 				<source>Translated with DeepL</source>
 				<target>Traduit avec DeepL</target>
 			</trans-unit>
-
-			<trans-unit id="glossary.sync.button.single">
-				<source>Synchronise Glossary</source>
-				<target>Synchroniser le glossaire</target>
-			</trans-unit>
-			<trans-unit id="glossary.sync.button.all">
-				<source>Synchronise Glossaries</source>
-				<target>Synchroniser les glossaires</target>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>

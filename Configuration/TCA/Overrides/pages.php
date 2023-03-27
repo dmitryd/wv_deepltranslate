@@ -9,13 +9,6 @@ if (!defined('TYPO3_MODE')) {
         return sprintf('LLL:EXT:wv_deepltranslate/Resources/Private/Language/locallang.xlf:%s', $languageKey);
     };
 
-    $GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = [
-        'DeepL Glossar',
-        'wv_deepltranslate',
-        'apps-pagetree-folder-contains-glossar',
-    ];
-    $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes']['contains-glossar'] = 'apps-pagetree-folder-contains-glossar';
-
     $columns = [
         'tx_wvdeepltranslate_content_not_checked' => [
             'exclude' => 0,

@@ -13,7 +13,6 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use WebVision\WvDeepltranslate\Domain\Repository\GlossaryRepository;
 use WebVision\WvDeepltranslate\Domain\Repository\SettingsRepository;
 
 class DeeplService
@@ -45,8 +44,6 @@ class DeeplService
 
     protected SettingsRepository $deeplSettingsRepository;
 
-    protected GlossaryRepository $glossaryRepository;
-
     private FrontendInterface $cache;
 
     public function __construct(?FrontendInterface $cache = null)
@@ -54,7 +51,6 @@ class DeeplService
         $this->cache = $cache ?? GeneralUtility::makeInstance(CacheManager::class)->getCache('wvdeepltranslate');
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->deeplSettingsRepository = $objectManager->get(SettingsRepository::class);
-        $this->glossaryRepository = $objectManager->get(GlossaryRepository::class);
         $this->requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
 
         $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('wv_deepltranslate');
@@ -79,13 +75,6 @@ class DeeplService
             'target_lang'  => urlencode($targetLanguage),
             'tag_handling' => urlencode('xml'),
         ];
-
-        // Implementation of glossary into translation
-        $glossaryId = $this->glossaryRepository->getGlossaryBySourceAndTarget($sourceLanguage, $targetLanguage);
-
-        if (!empty($glossaryId)) {
-            $postFields['glossary_id'] = $glossaryId;
-        }
 
         if (!empty($this->deeplFormality) && in_array(strtoupper($targetLanguage), $this->formalitySupportedLanguages, true)) {
             $postFields['formality'] = $this->deeplFormality;
