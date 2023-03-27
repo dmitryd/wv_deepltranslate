@@ -8,19 +8,6 @@ services:
     resource: '../Classes/*'
     exclude: '../Classes/{Domain/Model,Override/DatabaseRecordList.php,Override/v10/DatabaseRecordList.php}'
 
-  WebVision\WvDeepltranslate\Command\GlossariesEntriesCleanupCommand:
-    tags:
-      - name: 'console.command'
-        command: 'wv_deepltranslate:glossary_cleanup'
-
-  WebVision\WvDeepltranslate\Command\GlossariesEntriesListCommand:
-    tags:
-      - name: 'console.command'
-        command: 'wv_deepltranslate:glossary_list'
-
-  WebVision\WvDeepltranslate\Hooks\DataHandlerHook:
-    public: true
-
   WebVision\WvDeepltranslate\Service\DeeplService:
     arguments:
       $cache: '@cache.wvdeepltranslate'

@@ -56,20 +56,6 @@ if (!defined('TYPO3_MODE')) {
         $pageRenderer->loadRequireJsModule('TYPO3/CMS/WvDeepltranslate/Localization');
     }
 
-    $icons = [
-        'apps-pagetree-folder-contains-glossar' => 'deepl.svg',
-    ];
-    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-    foreach ($icons as $identifier => $path) {
-        if (!$iconRegistry->isRegistered($identifier)) {
-            $iconRegistry->registerIcon(
-                $identifier,
-                \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-                ['source' => 'EXT:wv_deepltranslate/Resources/Public/Icons/' . $path]
-            );
-        }
-    }
-
     //add caching for DeepL API supported Languages
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['wvdeepltranslate']
         ??= [];
